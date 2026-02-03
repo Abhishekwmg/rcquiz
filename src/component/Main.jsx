@@ -1,9 +1,7 @@
 import quizInstructions from "../data/quizRules";
+import { Link } from "react-router-dom";
 
 const MainScreen = () => {
-  function handleQuizStart() {
-    console.log("quiz started");
-  }
   return (
     <div>
       <h1>Please read the instructions carefully before proceeding.</h1>
@@ -16,7 +14,7 @@ const MainScreen = () => {
             </ol>
           );
         })}
-      <button onClick={handleQuizStart}>Start</button>
+      <Link to="quiz">Star</Link>
     </div>
   );
 };

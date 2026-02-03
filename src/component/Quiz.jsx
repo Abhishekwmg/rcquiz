@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import { Clock } from "lucide-react";
 import quizQuestions from "../data/quizData";
 import { useEffect, useState } from "react";
-import Score from "./Score";
 
 const Quiz = () => {
   const [activeInd, setActiveInd] = useState(0);
@@ -11,6 +11,7 @@ const Quiz = () => {
 
   useEffect(() => {
     if (timer < 0) return;
+    if (!isSubmitted) return;
     const timeout = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
@@ -40,7 +41,7 @@ const Quiz = () => {
   const currentQuiz = quizQuestions[activeInd];
   return (
     <section>
-      {" "}
+      <p>Score: {score}</p>
       <div>
         <div>
           <span>
@@ -52,33 +53,31 @@ const Quiz = () => {
           </div>
         </div>
       </div>
-      {isSubmitted ? (
-        <Score finalscore={score} />
-      ) : (
-        <div>
-          {/* Main Quiz Screen */}
-          <p>Question {activeInd + 1} of 10</p>
-          <div key={currentQuiz.id}>
-            <p>{currentQuiz.question}</p>
-            <div>
-              {currentQuiz.options.map((option, index) => {
-                return (
-                  <div key={option}>
-                    <button onClick={() => handleQuizOptions(option, index)}>
-                      {option}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
+      <div>
+        <p>Question {activeInd + 1} of 10</p>
+        <div key={currentQuiz.id}>
+          <p>{currentQuiz.question}</p>
+          <div>
+            {currentQuiz.options.map((option, index) => {
+              return (
+                <div key={option}>
+                  <button onClick={() => handleQuizOptions(index)}>
+                    {option}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
+      </div>
       <div>
         {activeInd === 9 ? (
-          <button onClick={() => setIsSubmitted((prevSubmit) => !prevSubmit)}>
+          <Link
+            to="/score"
+            onClick={() => setIsSubmitted((prevSubmit) => !prevSubmit)}
+          >
             Submit
-          </button>
+          </Link>
         ) : (
           <button disabled={activeInd === 9} onClick={handleNextQuestion}>
             Next
