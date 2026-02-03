@@ -1,7 +1,7 @@
-const Score = () => {
+const Score = ({ finalscore }) => {
   return (
     <div>
-      <h1>Final Score 9/10</h1>
+      <h1>Final Score {finalscore}/10</h1>
       <p>Duration Time</p>
       <p>Maybe show a round circular thing for the score</p>
       <p>
