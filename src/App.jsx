@@ -24,11 +24,48 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+// const App = () => {
+//   return (
+//     <div
+//       className="
+//         min-h-screen
+//         bg-[#FAFAF8]
+//         flex items-center justify-center
+//         p-6
+//       "
+//     >
+//       <div className="w-full max-w-4xl mx-auto">
+//         <RouterProvider router={router} />
+//       </div>
+//     </div>
+//   );
+// };
+
+import bgtwo from "./assets/bgone.jpg";
+
 const App = () => {
   return (
-    <section className="min-h-screen bg-[url('./assets/bgone.jpg')] bg-cover bg-center bg-no-repeat flex items-center justify-center">
-      <RouterProvider router={router} />
-    </section>
+    <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
+      {/* Background image */}
+      <img
+        src={bgtwo}
+        alt="heroimage"
+        className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+        "
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-[#FAFAF8]/80 -z-10" />
+
+      {/* Content */}
+      <div className="relative w-full max-w-4xl mx-auto">
+        <RouterProvider router={router} />
+      </div>
+    </div>
   );
 };
 
