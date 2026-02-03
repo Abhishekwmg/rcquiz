@@ -24,10 +24,6 @@ const quizInstructions = [
     rule: "If the time runs out before you submit the quiz, your answers will be automatically submitted.",
   },
   {
-    id: 7,
-    rule: "Each correct answer carries equal marks. There is no negative marking for incorrect answers.",
-  },
-  {
     id: 8,
     rule: "Do not refresh the page or close the browser during the quiz, as this may result in automatic submission.",
   },

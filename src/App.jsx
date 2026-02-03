@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 ]);
 const App = () => {
   return (
-    <section className="min-h-screen bg-[url('../assets/bgone.jpg')] bg-cover bg-center bg-no-repeat flex items-center justify-center">
+    <section className="min-h-screen bg-[url('./assets/bgone.jpg')] bg-cover bg-center bg-no-repeat flex items-center justify-center">
       <RouterProvider router={router} />
     </section>
   );
