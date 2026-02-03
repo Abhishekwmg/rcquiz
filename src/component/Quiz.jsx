@@ -1,24 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { Clock } from "lucide-react";
-import quizQuestions from "../data/quizData";
 import { useEffect, useState } from "react";
+import quizQuestions from "../data/quizData";
 
 const Quiz = () => {
   const [activeInd, setActiveInd] = useState(0);
   const [score, setScore] = useState(0);
+
+  const currentQuiz = quizQuestions[activeInd] ?? null;
+
   const [timer, setTimer] = useState(600);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     if (timer < 0) return;
-    if (!isSubmitted) return;
     const timeout = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
     return () => {
       clearInterval(timeout);
     };
-  });
+  }, []);
 
   function handleNextQuestion() {
     setActiveInd((prevInd) => {
@@ -27,6 +28,7 @@ const Quiz = () => {
   }
 
   function handleQuizOptions(index) {
+    if (!currentQuiz) return;
     if (currentQuiz.correctAnswer === index) {
       setScore((prevScore) => prevScore + 1);
     }
@@ -37,8 +39,6 @@ const Quiz = () => {
 
   const formattedMinute = String(minutes).padStart(2, "0");
   const formattedSecond = String(seconds).padStart(2, "0");
-
-  const currentQuiz = quizQuestions[activeInd];
   return (
     <section>
       <p>Score: {score}</p>
@@ -74,6 +74,7 @@ const Quiz = () => {
         {activeInd === 9 ? (
           <Link
             to="/score"
+            state={{ score, total: quizQuestions.length }}
             onClick={() => setIsSubmitted((prevSubmit) => !prevSubmit)}
           >
             Submit

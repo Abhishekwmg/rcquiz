@@ -1,7 +1,12 @@
-const Score = ({ finalscore }) => {
+import { useLocation, Link } from "react-router-dom";
+
+const Score = () => {
+  const { state } = useLocation();
+  const { score, total } = state;
+
   return (
     <div>
-      <h1>Final Score {finalscore}/10</h1>
+      <h1>{`Final Score: ${score}/${total}`}</h1>
       <p>Duration Time</p>
       <p>Maybe show a round circular thing for the score</p>
       <p>
@@ -9,8 +14,8 @@ const Score = ({ finalscore }) => {
         failed status show two different images
       </p>
       <p>Some quote or motivational quote depending upon the quiz score</p>
-      <button>Retake</button>
-      <button>Finish</button>
+      <Link to="/quiz">Retake</Link>
+      <Link to="/">Finish</Link>
     </div>
   );
 };

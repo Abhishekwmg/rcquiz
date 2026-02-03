@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/Layout";
 import MainScreen from "./component/Main";
-import Score from "./component/Score";
 import Quiz from "./component/Quiz";
 import FinalScore from "./pages/FInalScore";
 
