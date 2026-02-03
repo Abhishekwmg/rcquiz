@@ -3,19 +3,25 @@ import quizQuestions from "../data/quizData";
 import { useState } from "react";
 
 const Quiz = () => {
-  const [quizData, setQuizData] = useState(quizQuestions);
   const [activeInd, setActiveInd] = useState(0);
-  const [currentQuiz, setCurrentQuiz] = useState([]);
+  const [score, setScore] = useState(0);
 
-  // console.log(quizData[activeInd]);
-
-  function handleNextQuiz() {
-    setActiveInd((prevInd) => prevInd + 1);
-    setCurrentQuiz([quizData[activeInd]]);
+  function handleNextQuestion() {
+    setActiveInd((prevInd) => {
+      return prevInd + 1;
+    });
   }
 
+  function handleQuizOptions(option, index) {
+    if (currentQuiz.correctAnswer === index) {
+      setScore((prevScore) => prevScore + 1);
+    }
+  }
+
+  const currentQuiz = quizQuestions[activeInd];
   return (
     <section>
+      Final Score:{score}
       <div>
         <div>
           <span>
@@ -30,38 +36,30 @@ const Quiz = () => {
       </div>
       <div>
         {/* Main Quiz Screen */}
-        <p>Question 1 of 10</p>
-        {currentQuiz.map((data) => {
-          return (
-            <div key={data.id}>
-              <p>{data.question}</p>
-              <div>
-                {data.options.map((option) => {
-                  return (
-                    <div key={option}>
-                      <button>{option}</button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+        <p>Question {activeInd + 1} of 10</p>
+        <div key={currentQuiz.id}>
+          <p>{currentQuiz.question}</p>
+          <div>
+            {currentQuiz.options.map((option, index) => {
+              return (
+                <div key={option}>
+                  <button onClick={() => handleQuizOptions(option, index)}>
+                    {option}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
       <div>
-        {/* Pagination */}
-        <button>Prev</button>
-        <p>1</p>
-        <p>2</p>
-        <p>3</p>
-        <p>4</p>
-        <p>5</p>
-        <p>6</p>
-        <p>7</p>
-        <p>8</p>
-        <p>9</p>
-        <p>10</p>
-        <button onClick={handleNextQuiz}>Next</button>
+        {activeInd === 9 ? (
+          <button onClick={handleNextQuestion}>Submit</button>
+        ) : (
+          <button disabled={activeInd === 9} onClick={handleNextQuestion}>
+            Next
+          </button>
+        )}
       </div>
     </section>
   );
